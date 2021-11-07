@@ -1,25 +1,57 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import Profileimg from "./Profileimg.png";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = {
+    Person: {
+      fullName: "Mahmoud Magdy",
+      bio: "qweeqw",
+      imgSrc: { Profileimg },
+      profession: "Web Developer",
+    },
+    show: false,
+    count: 0,
+  };
+
+  handleShowPerson = () => {
+    if (this.state.show === false) {
+      setInterval(() => this.counter(), 1000);
+      this.setState({
+        ...this.state,
+        show: !this.state.show,
+        count: 0,
+      });
+    } else {
+      this.setState({
+        show: !this.state.show,
+        count: 0,
+      });
+      clearInterval(this.counter);
+    }
+  };
+  counter = () => {
+    this.setState({
+      count: this.state.count + 1,
+    });
+  };
+
+  render() {
+    return (
+      <div>
+        {this.state.show && (
+          <>
+            <img src={Profileimg} style={{ height: "100px" }} alt="eeee" />
+            <p>{this.state.Person.fullName}</p>
+            <p>{this.state.Person.bio}</p>
+            <p>{this.state.Person.profession}</p>
+          </>
+        )}
+        <div>{this.state.count}</div>
+
+        <button onClick={this.handleShowPerson}>Toggle</button>
+      </div>
+    );
+  }
 }
 
 export default App;
